@@ -10,6 +10,7 @@ export default {
         "fe-header-blue": "#DDE4F1",
         "fe-green-icon": "#578F5D",
         "fe-input-background": "#F2F3F5",
+        "fe-text-dark": "#23243D",
       },
       fontFamily: {
         poppins: ["var(--font-poppins)", "sans-serif"],
