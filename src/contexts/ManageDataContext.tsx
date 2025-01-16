@@ -5,6 +5,7 @@ import {
   usePostNewTask,
   useReorderTasks,
 } from "../services/tasks";
+import FadeLoading from "../components/FadeLoading/FadeLoading";
 
 const ManageDataContext = createContext({} as Contexts.ManageDataContext);
 
@@ -18,10 +19,13 @@ export function ManageDataContextProvider({ children }: Props) {
   const patchTask = usePatchTask();
   const reorderTasks = useReorderTasks();
   const [tasks, setTasks] = useState<Models.Task[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     getTasks().then((tasks) => {
       setTasks(tasks);
+      setLoading(false);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -75,6 +79,7 @@ export function ManageDataContextProvider({ children }: Props) {
         _reorderTasks,
       }}
     >
+      {loading && <FadeLoading loading />}
       {children}
     </ManageDataContext.Provider>
   );
