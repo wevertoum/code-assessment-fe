@@ -26,9 +26,11 @@ export function usePostNewTask() {
 export function useGetTasks() {
   return useCallback(async (): Promise<Models.Task[]> => {
     return new Promise((resolve) => {
-      const storedTasks = localStorage.getItem("tasks-endpoint");
-      const tasksList = storedTasks ? JSON.parse(storedTasks) : [];
-      resolve(tasksList);
+      setTimeout(() => {
+        const storedTasks = localStorage.getItem("tasks-endpoint");
+        const tasksList = storedTasks ? JSON.parse(storedTasks) : [];
+        resolve(tasksList);
+      }, 3000); // Delay of 3 seconds to test the loading state
     });
   }, []);
 }
