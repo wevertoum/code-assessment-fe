@@ -6,8 +6,9 @@ import {
   DndContext,
   useSensor,
   useSensors,
-  KeyboardSensor,
   MouseSensor,
+  KeyboardSensor,
+  PointerSensor,
   DragOverEvent,
   closestCorners,
 } from "@dnd-kit/core";
@@ -28,7 +29,12 @@ const TodoPage: React.FC = () => {
     },
   });
   const keyboardSensor = useSensor(KeyboardSensor);
-  const sensors = useSensors(mouseSensor, keyboardSensor);
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
+  const sensors = useSensors(mouseSensor, keyboardSensor, pointerSensor);
 
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     if (!over) return;
@@ -78,7 +84,7 @@ const TodoPage: React.FC = () => {
           </div>
         </header>
         <main className="bg-white flex-grow rounded-none md:rounded-b-[20px] w-full p-[30px]">
-          <div className="w-full h-full">
+          <div className="w-full h-full overflow-auto">
             <InputCustom
               placeholder="+ Adicione uma tarefa a lista. Pressione Enter para salvar."
               onEnter={handleAddTask}

@@ -32,12 +32,13 @@ const BoardSection = ({
             {title}
           </small>
         </div>
-        {tasks.length > 0 ? (
-          <SortableContext
-            id={id}
-            items={tasks.map((task) => task.id)}
-            strategy={verticalListSortingStrategy}
-          >
+
+        <SortableContext
+          id={id}
+          items={tasks.map((task) => task.id)}
+          strategy={verticalListSortingStrategy}
+        >
+          {tasks.length > 0 ? (
             <div ref={setNodeRef}>
               {tasks.map((task) => (
                 <SortableTaskItem
@@ -47,10 +48,10 @@ const BoardSection = ({
                 />
               ))}
             </div>
-          </SortableContext>
-        ) : (
-          <p className="text-center text-sm text-gray-500">{emptyLabel}</p>
-        )}
+          ) : (
+            <p className="text-center text-sm text-gray-500">{emptyLabel}</p>
+          )}
+        </SortableContext>
       </div>
     </>
   );

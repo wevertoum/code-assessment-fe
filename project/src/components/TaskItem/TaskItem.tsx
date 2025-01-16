@@ -1,3 +1,4 @@
+import DragAndDrop from "../../icons/DragAndDrop";
 import CheckboxWithLabel from "../CheckBoxWithLabel/CheckboxWithLabel";
 
 interface Props {
@@ -15,6 +16,7 @@ export default function TaskItem({ checked, description, onChange }: Props) {
           description={description}
           onChange={onChange}
         />
+        <DragAndDrop size={20} />
       </div>
 
       <div className="w-full h-[1px] bg-fe-separator absolute bottom-0"></div>
