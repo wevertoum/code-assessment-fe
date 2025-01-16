@@ -1,5 +1,5 @@
 import "@vitest/browser/matchers.d.ts";
-import { vi, expect, test } from "vitest";
+import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import TaskItem from "./TaskItem";
 
