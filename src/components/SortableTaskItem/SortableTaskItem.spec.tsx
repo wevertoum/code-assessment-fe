@@ -9,27 +9,8 @@ test("renders task description correctly", async () => {
     status: "pending",
     order: 0,
   } as Models.Task;
-  const { getByText } = render(
-    <SortableTaskItem task={task} onChange={() => {}} />
-  );
+  const { getByText } = render(<SortableTaskItem task={task} />);
   await expect.element(getByText(task.description)).toBeInTheDocument();
-});
-
-test("triggers onChange when TaskItem checkbox is clicked", async () => {
-  const onChangeMock = vi.fn();
-  const task = {
-    id: "2",
-    description: "Checkbox task",
-    status: "pending",
-    order: 0,
-  } as Models.Task;
-  const { getByRole } = render(
-    <SortableTaskItem task={task} onChange={onChangeMock} />
-  );
-
-  const checkbox = getByRole("checkbox");
-  await checkbox.click();
-  expect(onChangeMock).toHaveBeenCalledWith(true);
 });
 
 test("renders TaskItem as completed when status is 'completed'", async () => {
@@ -39,9 +20,7 @@ test("renders TaskItem as completed when status is 'completed'", async () => {
     status: "completed",
     order: 0,
   } as Models.Task;
-  const { getByRole } = render(
-    <SortableTaskItem task={task} onChange={() => {}} />
-  );
+  const { getByRole } = render(<SortableTaskItem task={task} />);
 
   const checkbox = getByRole("checkbox");
   await expect.element(checkbox).toBeChecked();
@@ -54,9 +33,7 @@ test("renders TaskItem as pending when status is 'pending'", async () => {
     status: "pending",
     order: 0,
   } as Models.Task;
-  const { getByRole } = render(
-    <SortableTaskItem task={task} onChange={() => {}} />
-  );
+  const { getByRole } = render(<SortableTaskItem task={task} />);
 
   const checkbox = getByRole("checkbox");
   await expect.element(checkbox).not.toBeChecked();
@@ -69,9 +46,7 @@ test("applies transform and transition styles correctly", async () => {
     status: "pending",
     order: 0,
   } as Models.Task;
-  const { container } = render(
-    <SortableTaskItem task={task} onChange={() => {}} />
-  );
+  const { container } = render(<SortableTaskItem task={task} />);
 
   const wrapperDiv = container.firstChild as HTMLElement;
   expect(wrapperDiv.style.transform).toBeDefined();

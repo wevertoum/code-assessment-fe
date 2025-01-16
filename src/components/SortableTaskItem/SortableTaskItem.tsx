@@ -5,10 +5,9 @@ import TaskItem from "../TaskItem/TaskItem";
 
 type Props = {
   task: Models.Task;
-  onChange: (checked: boolean) => void;
 };
 
-const SortableTaskItem: React.FC<Props> = ({ task, onChange }) => {
+const SortableTaskItem: React.FC<Props> = ({ task }) => {
   const {
     attributes,
     listeners,
@@ -26,11 +25,7 @@ const SortableTaskItem: React.FC<Props> = ({ task, onChange }) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <TaskItem
-        checked={task.status === "completed"}
-        description={task.description}
-        onChange={onChange}
-      />
+      <TaskItem task={task} />
     </div>
   );
 };

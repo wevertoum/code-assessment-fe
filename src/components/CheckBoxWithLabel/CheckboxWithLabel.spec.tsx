@@ -7,7 +7,8 @@ test("renders the checkbox and label correctly", async () => {
     <CheckboxWithLabel
       checked={false}
       description="Test description"
-      onChange={() => {}}
+      onCheck={() => {}}
+      onRename={() => {}}
     />
   );
 
@@ -23,7 +24,8 @@ test("renders CheckSymbol when checked is true", () => {
     <CheckboxWithLabel
       checked={true}
       description="Task with icon"
-      onChange={() => {}}
+      onCheck={() => {}}
+      onRename={() => {}}
     />
   );
 
@@ -37,7 +39,8 @@ test("calls onChange with true when checkbox is checked", async () => {
     <CheckboxWithLabel
       checked={false}
       description="Task to check"
-      onChange={onChangeMock}
+      onCheck={onChangeMock}
+      onRename={() => {}}
     />
   );
 
@@ -53,7 +56,8 @@ test("calls onChange with false when checkbox is unchecked", async () => {
     <CheckboxWithLabel
       checked={true}
       description="Task to uncheck"
-      onChange={onChangeMock}
+      onCheck={onChangeMock}
+      onRename={() => {}}
     />
   );
 

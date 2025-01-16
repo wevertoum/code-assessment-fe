@@ -1,19 +1,29 @@
+import { useState } from "react";
 import CheckSymbol from "../../icons/CheckSymbol";
 
 interface Props {
   checked: boolean;
   description: string;
-  onChange: (checked: boolean) => void;
+  onCheck: (checked: boolean) => void;
+  onRename: (newDescription: string) => void;
 }
 
-const CheckboxWithLabel = ({ checked, description, onChange }: Props) => {
+const CheckboxWithLabel = ({
+  checked,
+  description,
+  onCheck,
+  onRename,
+}: Props) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newDescription, setNewDescription] = useState(description);
+
   return (
     <div className="flex w-full gap-[15px] items-center">
       <div className="relative w-[30px] h-[30px]">
         <input
           type="checkbox"
           checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
+          onChange={(e) => onCheck(e.target.checked)}
           className={`
             absolute
             appearance-none peer shrink-0
@@ -31,14 +41,31 @@ const CheckboxWithLabel = ({ checked, description, onChange }: Props) => {
         />
       </div>
 
-      <span
-        className={`
-          text-base flex-1
-          ${checked ? "line-through text-fe-text-light" : "text-fe-text-dark"}
-        `}
-      >
-        {description}
-      </span>
+      {isEditing ? (
+        <input
+          type="text"
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onRename(newDescription);
+              setIsEditing(false);
+            }
+          }}
+          className="text-base flex-1 bg-transparent border-none outline-none text-fe-text-dark caret-fe-text-dark"
+          autoFocus
+        />
+      ) : (
+        <span
+          onClick={() => setIsEditing(true)}
+          className={`
+            text-base flex-1
+            ${checked ? "line-through text-fe-text-light" : "text-fe-text-dark"}
+          `}
+        >
+          {description}
+        </span>
+      )}
     </div>
   );
 };

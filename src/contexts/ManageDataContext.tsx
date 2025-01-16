@@ -36,9 +36,22 @@ export function ManageDataContextProvider({ children }: Props) {
   );
 
   const _patchTask = useCallback(
-    async (id: string, status: "pending" | "completed"): Promise<void> => {
-      await patchTask(id, status).then((tasks) => {
+    async (
+      id: string,
+      {
+        status,
+        description,
+      }: {
+        status?: Models.TaskStatus;
+        description?: string;
+      }
+    ): Promise<Models.Task[]> => {
+      return patchTask(id, {
+        status,
+        description,
+      }).then((tasks) => {
         setTasks(tasks);
+        return tasks;
       });
     },
     [patchTask]

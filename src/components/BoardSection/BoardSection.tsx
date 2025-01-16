@@ -10,16 +10,9 @@ type BoardSectionProps = {
   title: string;
   emptyLabel: string;
   tasks: Models.Task[];
-  onChange: (id: string) => void;
 };
 
-const BoardSection = ({
-  id,
-  title,
-  emptyLabel,
-  tasks,
-  onChange,
-}: BoardSectionProps) => {
+const BoardSection = ({ id, title, emptyLabel, tasks }: BoardSectionProps) => {
   const { setNodeRef } = useDroppable({
     id,
   });
@@ -41,11 +34,7 @@ const BoardSection = ({
           {tasks.length > 0 ? (
             <div ref={setNodeRef}>
               {tasks.map((task) => (
-                <SortableTaskItem
-                  key={task.id}
-                  task={task}
-                  onChange={() => onChange(task.id)}
-                />
+                <SortableTaskItem key={task.id} task={task} />
               ))}
             </div>
           ) : (

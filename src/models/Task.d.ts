@@ -3,6 +3,7 @@ namespace Models {
     id: string;
     order: number;
     description: string;
-    status: "pending" | "completed";
+    status: TaskStatus;
   }
+  type TaskStatus = "pending" | "completed";
 }

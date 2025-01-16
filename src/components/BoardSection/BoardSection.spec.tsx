@@ -15,7 +15,6 @@ test("renders the section title", async () => {
       title="To Do"
       emptyLabel="No tasks here"
       tasks={[]}
-      onChange={() => {}}
     />
   );
   await expect.element(getByText("To Do")).toBeInTheDocument();
@@ -28,7 +27,6 @@ test("renders empty label when there are no tasks", async () => {
       title="To Do"
       emptyLabel="No tasks here"
       tasks={[]}
-      onChange={() => {}}
     />
   );
   await expect.element(getByText("No tasks here")).toBeInTheDocument();
@@ -46,7 +44,6 @@ test("renders tasks when tasks are provided", async () => {
       title="To Do"
       emptyLabel="No tasks here"
       tasks={tasks}
-      onChange={() => {}}
     />
   );
 
@@ -62,7 +59,6 @@ test("sets droppable ref on the container", async () => {
       title="To Do"
       emptyLabel="No tasks here"
       tasks={[]}
-      onChange={() => {}}
     />
   );
 
@@ -94,7 +90,6 @@ test("renders a SortableContext with the correct props", async () => {
       title="To Do"
       emptyLabel="No tasks here"
       tasks={tasks}
-      onChange={() => {}}
     />
   );
 

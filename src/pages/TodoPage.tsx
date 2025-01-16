@@ -7,7 +7,6 @@ import {
   useSensor,
   useSensors,
   MouseSensor,
-  KeyboardSensor,
   PointerSensor,
   DragOverEvent,
   closestCorners,
@@ -28,13 +27,12 @@ const TodoPage: React.FC = () => {
       distance: 10,
     },
   });
-  const keyboardSensor = useSensor(KeyboardSensor);
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
       distance: 10,
     },
   });
-  const sensors = useSensors(mouseSensor, keyboardSensor, pointerSensor);
+  const sensors = useSensors(mouseSensor, pointerSensor);
 
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     if (!over) return;
@@ -47,7 +45,9 @@ const TodoPage: React.FC = () => {
     const newStatus =
       activeContainerId === "pending-tasks" ? "completed" : "pending";
 
-    _patchTask(active.id.toString(), newStatus);
+    _patchTask(active.id.toString(), {
+      status: newStatus,
+    });
   };
 
   const handleDragEnd = ({ active, over }: DragOverEvent) => {
@@ -98,7 +98,6 @@ const TodoPage: React.FC = () => {
               <div className="mt-[30px]">
                 <BoardSection
                   id="pending-tasks"
-                  onChange={(id) => _patchTask(id, "completed")}
                   tasks={tasks.filter((task) => task.status === "pending")}
                   title="Para fazer"
                   emptyLabel="Nenhum item pendente 😄"
@@ -106,7 +105,6 @@ const TodoPage: React.FC = () => {
 
                 <BoardSection
                   id="completed-tasks"
-                  onChange={(id) => _patchTask(id, "pending")}
                   tasks={tasks.filter((task) => task.status === "completed")}
                   title="Concluído"
                   emptyLabel="Nenhum item concluído 😳"

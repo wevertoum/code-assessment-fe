@@ -37,7 +37,10 @@ export function usePatchTask() {
   return useCallback(
     async (
       id: string,
-      status: "pending" | "completed"
+      {
+        status,
+        description,
+      }: { status?: Models.TaskStatus; description?: string }
     ): Promise<Models.Task[]> => {
       return new Promise((resolve) => {
         const storedTasks = localStorage.getItem("tasks-endpoint");
@@ -46,7 +49,13 @@ export function usePatchTask() {
           : [];
         const taskIndex = tasksList.findIndex((task) => task.id === id);
         if (taskIndex === -1) return resolve(tasksList);
-        tasksList[taskIndex].status = status;
+        if (status) {
+          tasksList[taskIndex].status = status;
+        }
+        if (description) {
+          tasksList[taskIndex].description = description;
+        }
+
         localStorage.setItem("tasks-endpoint", JSON.stringify(tasksList));
         resolve(tasksList);
       });
