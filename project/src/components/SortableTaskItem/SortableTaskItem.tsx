@@ -9,12 +9,19 @@ type Props = {
 };
 
 const SortableTaskItem: React.FC<Props> = ({ task, onChange }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: task.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: task.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    opacity: isDragging ? 0.7 : 1,
   };
 
   return (
