@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import CheckCircle from "../components/icons/CheckCircle";
 import InputCustom from "../components/InputCustom/InputCustom";
 import TaskItem from "../components/TaskItem/TaskItem";
+import ManageDataContext from "../contexts/ManageDataContext";
 
 const TodoPage: React.FC = () => {
+  const { tasks, _postNewTask, _patchTask } = useContext(ManageDataContext);
+
+  const handleAddTask = async (description: string) => {
+    await _postNewTask(description);
+  };
+
   return (
     <div className="h-screen w-screen flex justify-center items-center">
       <article
@@ -23,7 +30,7 @@ const TodoPage: React.FC = () => {
           <div className="w-full h-full">
             <InputCustom
               placeholder="+ Adicione uma tarefa a lista. Pressione Enter para salvar."
-              onEnter={(value) => console.log(value)}
+              onEnter={handleAddTask}
             />
             <div className="mt-[30px]">
               <div className="flex flex-col">
@@ -32,16 +39,23 @@ const TodoPage: React.FC = () => {
                     Para fazer
                   </small>
                 </div>
-                <TaskItem
-                  checked={false}
-                  description="Nome da tarefa que está por fazer"
-                  onChange={(checked) => console.log(checked)}
-                />
-                <TaskItem
-                  checked={false}
-                  description="Segunda tarefa por fazer"
-                  onChange={(checked) => console.log(checked)}
-                />
+                {tasks.filter((task) => task.status === "pending").length >
+                0 ? (
+                  tasks
+                    .filter((task) => task.status === "pending")
+                    .map((task) => (
+                      <TaskItem
+                        key={task.id}
+                        checked={false}
+                        description={task.description}
+                        onChange={() => _patchTask(task.id, "completed")}
+                      />
+                    ))
+                ) : (
+                  <p className="text-center text-sm text-gray-500">
+                    Nenhum item pendente 😄
+                  </p>
+                )}
               </div>
 
               <div>
@@ -50,21 +64,23 @@ const TodoPage: React.FC = () => {
                     Concluído
                   </small>
                 </div>
-                <TaskItem
-                  checked={true}
-                  description="Exemplo de tarefa"
-                  onChange={(checked) => console.log(checked)}
-                />
-                <TaskItem
-                  checked={true}
-                  description="Segundo exemplo aleatório de nome de tarefa"
-                  onChange={(checked) => console.log(checked)}
-                />
-                <TaskItem
-                  checked={true}
-                  description="Mais um exemplo de tarefa finalizada"
-                  onChange={(checked) => console.log(checked)}
-                />
+                {tasks.filter((task) => task.status === "completed").length >
+                0 ? (
+                  tasks
+                    .filter((task) => task.status === "completed")
+                    .map((task) => (
+                      <TaskItem
+                        key={task.id}
+                        checked={true}
+                        description={task.description}
+                        onChange={() => _patchTask(task.id, "pending")}
+                      />
+                    ))
+                ) : (
+                  <p className="text-center text-sm text-gray-500">
+                   Nenhum item concluído 😳
+                  </p>
+                )}
               </div>
             </div>
           </div>
