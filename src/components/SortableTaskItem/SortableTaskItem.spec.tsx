@@ -1,4 +1,4 @@
-import { vi, expect, test } from "vitest";
+import { expect, test } from "vitest";
 import { render } from "vitest-browser-react";
 import SortableTaskItem from "./SortableTaskItem";
 
