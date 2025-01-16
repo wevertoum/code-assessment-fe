@@ -1,4 +1,4 @@
-import CheckSymbol from "../icons/CheckSymbol";
+import CheckSymbol from "../../icons/CheckSymbol";
 
 interface Props {
   checked: boolean;

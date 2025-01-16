@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CheckCircle from "../components/icons/CheckCircle";
+import CheckCircle from "../icons/CheckCircle";
 import InputCustom from "../components/InputCustom/InputCustom";
 import ManageDataContext from "../contexts/ManageDataContext";
 import {
