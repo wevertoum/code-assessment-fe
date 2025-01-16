@@ -54,3 +54,15 @@ export function usePatchTask() {
     []
   );
 }
+
+export function useReorderTasks() {
+  return useCallback(
+    async (updatedTasks: Models.Task[]): Promise<Models.Task[]> => {
+      return new Promise((resolve) => {
+        localStorage.setItem("tasks-endpoint", JSON.stringify(updatedTasks));
+        resolve(updatedTasks);
+      });
+    },
+    []
+  );
+}

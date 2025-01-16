@@ -1,5 +1,10 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import { useGetTasks, usePatchTask, usePostNewTask } from "../services/tasks";
+import {
+  useGetTasks,
+  usePatchTask,
+  usePostNewTask,
+  useReorderTasks,
+} from "../services/tasks";
 
 const ManageDataContext = createContext({} as Contexts.ManageDataContext);
 
@@ -11,6 +16,7 @@ export function ManageDataContextProvider({ children }: Props) {
   const getTasks = useGetTasks();
   const postNewTask = usePostNewTask();
   const patchTask = usePatchTask();
+  const reorderTasks = useReorderTasks();
   const [tasks, setTasks] = useState<Models.Task[]>([]);
 
   useEffect(() => {
@@ -38,12 +44,22 @@ export function ManageDataContextProvider({ children }: Props) {
     [patchTask]
   );
 
+  const _reorderTasks = useCallback(
+    async (updatedTasks: Models.Task[]): Promise<void> => {
+      await reorderTasks(updatedTasks).then((tasks) => {
+        setTasks(tasks);
+      });
+    },
+    [reorderTasks]
+  );
+
   return (
     <ManageDataContext.Provider
       value={{
         tasks,
         _postNewTask,
         _patchTask,
+        _reorderTasks,
       }}
     >
       {children}
