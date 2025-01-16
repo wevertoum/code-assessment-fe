@@ -21,6 +21,16 @@ this application is available at Vercel, [Click here to access](https://code-ass
 - **[Tailwind CSS (v3+)](https://tailwindcss.com/)**: A utility-first CSS framework used to style the application quickly and consistently.
 - **[Dnd Kit (v6)](https://github.com/clauderic/dnd-kit)**: Used to implement drag-and-drop functionality, allowing tasks to be reordered interactively.
 
+### Architectural Overview
+
+- **Component-Based Design**: Reusable and modular components like `BoardSection`, `SortableTaskItem`, and `InputCustom`.  
+- **State Management**: Centralized global state using `ManageDataContext` with scalable logic for tasks.  
+- **Drag-and-Drop Functionality**: Interactive task reordering with `@dnd-kit/core` and `@dnd-kit/sortable`.  
+- **Responsive Design**: Consistent and adaptable UI with **Tailwind CSS**, optimized for all devices.  
+- **Testing Strategy**: Reliable components tested with **Vitest** for functionality and behavior.  
+- **Separation of Concerns**: Organized directories for components, contexts, services, icons, and utilities.  
+- **Backend Integration-Ready**: Local state logic can be easily replaced by API calls in the future. 
+
 ### Key Features
 
 - **Reusability**: The project is designed with reusable components such as `BoardSection`, `InputCustom`, and `SortableTaskItem`. These self-contained components can be easily reused across different parts of the application.
