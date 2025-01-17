@@ -84,7 +84,7 @@ const TodoPage: React.FC = () => {
           </div>
         </header>
         <main className="bg-white flex-grow rounded-none md:rounded-b-[20px] w-full p-[30px]">
-          <div className="w-full h-full overflow-auto">
+          <div className="w-full h-full">
             <InputCustom
               placeholder="+ Adicione uma tarefa a lista. Pressione Enter para salvar."
               onEnter={handleAddTask}
